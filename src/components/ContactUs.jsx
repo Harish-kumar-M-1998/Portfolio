@@ -9,8 +9,8 @@ const ContactSectionContainer = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: ${(props) => props.theme.palette.background.default};
-  color: ${(props) => props.theme.palette.text.primary};
+  background-color: ${(props) => props.theme?.palette?.background?.default || '#ffffff'};
+  color: ${(props) => props.theme?.palette?.text?.primary || '#000000'};
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -52,7 +52,7 @@ const LeftSide = styled.div`
 
   .email-id {
     font-size: 1rem;
-    color: ${(props) => props.theme.palette.text.secondary};
+    color: ${(props) => props.theme?.palette?.text?.secondary || '#555555'};
   }
 `;
 
@@ -72,7 +72,7 @@ const RightSide = styled.div`
     input,
     textarea {
       padding: 8px;
-      border: 1px solid ${(props) => props.theme.palette.border};
+      border: 1px solid ${(props) => props.theme?.palette?.border || '#cccccc'};
       border-radius: 4px;
       font-size: 0.9rem;
       width: 80%;
@@ -89,7 +89,7 @@ const RightSide = styled.div`
 
     input[type='submit'] {
       width: 80%;
-      background-color: ${(props) => props.theme.palette.primary.main};
+      background-color: ${(props) => props.theme?.palette?.primary?.main || '#6200ee'};
       color: #fff;
       border: none;
       cursor: pointer;
@@ -99,7 +99,7 @@ const RightSide = styled.div`
       transition: background-color 0.3s;
 
       &:hover {
-        background-color: ${(props) => props.theme.palette.primary.dark};
+        background-color: ${(props) => props.theme?.palette?.primary?.dark || '#3700b3'};
       }
 
       @media (max-width: 768px) {
@@ -109,7 +109,7 @@ const RightSide = styled.div`
   }
 
   .success-message {
-    color: ${(props) => props.theme.palette.success.main};
+    color: ${(props) => props.theme?.palette?.success?.main || '#4caf50'};
     font-size: 1rem;
     margin-top: 10px;
   }
@@ -134,6 +134,7 @@ export const ContactUs = () => {
         },
         (error) => {
           console.log('FAILED...', error.text);
+          setSuccessMessage('Failed to send message. Please try again.');
         }
       );
   };
