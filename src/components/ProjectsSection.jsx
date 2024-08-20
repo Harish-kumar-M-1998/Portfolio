@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { ClipLoader } from 'react-spinners'; // Import the spinner
 import projects from './projects';
 
 // Animation for project card hover
@@ -199,9 +200,17 @@ const ProjectDetails = styled.div`
   }
 `;
 
+const LoadingSpinner = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+`;
+
 const ProjectsSection = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [selectedProject, setSelectedProject] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -215,69 +224,86 @@ const ProjectsSection = () => {
     setSelectedProject(null);
   };
 
+  useEffect(() => {
+    // Simulate data loading
+    const loadProjects = async () => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000); // Simulate loading time
+    };
+    loadProjects();
+  }, []);
+
   const filteredProjects = projects[activeTab];
 
   return (
     <ProjectsSectionContainer>
-    <h2 style={{ textAlign: 'center' }}>Projects</h2>
-
-      <Tabs>
-        <button
-          className={activeTab === 'all' ? 'active' : ''}
-          onClick={() => handleTabClick('all')}
-        >
-          All
-        </button>
-        <button
-          className={activeTab === 'fullstack' ? 'active' : ''}
-          onClick={() => handleTabClick('fullstack')}
-        >
-          Full Stack
-        </button>
-        <button
-          className={activeTab === 'miniprojects' ? 'active' : ''}
-          onClick={() => handleTabClick('miniprojects')}
-        >
-          Mini Projects
-        </button>
-      </Tabs>
-      <ProjectCardsContainer id="projects">
-        {filteredProjects.map((project) => (
-          <ProjectCard key={project.id} onClick={() => handleCardClick(project)}>
-            <img src={project.image} alt={project.title} />
-            <div className="card-content">
-              <div className="card-title">{project.title}</div>
-              <div className="card-icons">
-                <a href={project.github} target="_blank" rel="noopener noreferrer">
-                  <i className="fab fa-github"></i>
-                </a>
-                <a href={project.deployed} target="_blank" rel="noopener noreferrer">
-                  <i className="fas fa-external-link-alt"></i>
-                </a>
+      <h2 style={{ textAlign: 'center' }}>Projects</h2>
+      {loading ? (
+        <LoadingSpinner>
+          <ClipLoader size={50} color="#ff7e00" />
+        </LoadingSpinner>
+      ) : (
+        <>
+          <Tabs>
+            <button
+              className={activeTab === 'all' ? 'active' : ''}
+              onClick={() => handleTabClick('all')}
+            >
+              All
+            </button>
+            <button
+              className={activeTab === 'fullstack' ? 'active' : ''}
+              onClick={() => handleTabClick('fullstack')}
+            >
+              Full Stack
+            </button>
+            <button
+              className={activeTab === 'miniprojects' ? 'active' : ''}
+              onClick={() => handleTabClick('miniprojects')}
+            >
+              Mini Projects
+            </button>
+          </Tabs>
+          <ProjectCardsContainer id="projects">
+            {filteredProjects.map((project) => (
+              <ProjectCard key={project.id} onClick={() => handleCardClick(project)}>
+                <img src={project.image} alt={project.title} />
+                <div className="card-content">
+                  <div className="card-title">{project.title}</div>
+                  <div className="card-icons">
+                    <a href={project.github} target="_blank" rel="noopener noreferrer">
+                      <i className="fab fa-github"></i>
+                    </a>
+                    <a href={project.deployed} target="_blank" rel="noopener noreferrer">
+                      <i className="fas fa-external-link-alt"></i>
+                    </a>
+                  </div>
+                </div>
+              </ProjectCard>
+            ))}
+          </ProjectCardsContainer>
+          {selectedProject && (
+            <ProjectDetails isOpen={!!selectedProject}>
+              <div className="details-content">
+                <span className="close-button" onClick={handleCloseDetails}>
+                  &times;
+                </span>
+                <h2>{selectedProject.title}</h2>
+                <img src={selectedProject.image} alt={selectedProject.title} />
+                <p>{selectedProject.description}</p>
+                <div className="card-icons">
+                  <a href={selectedProject.github} target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-github"></i>
+                  </a>
+                  <a href={selectedProject.deployed} target="_blank" rel="noopener noreferrer">
+                    <i className="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
               </div>
-            </div>
-          </ProjectCard>
-        ))}
-      </ProjectCardsContainer>
-      {selectedProject && (
-        <ProjectDetails isOpen={!!selectedProject}>
-          <div className="details-content">
-            <span className="close-button" onClick={handleCloseDetails}>
-              &times;
-            </span>
-            <h2>{selectedProject.title}</h2>
-            <img src={selectedProject.image} alt={selectedProject.title} />
-            <p>{selectedProject.description}</p>
-            <div className="card-icons">
-              <a href={selectedProject.github} target="_blank" rel="noopener noreferrer">
-                <i className="fab fa-github"></i>
-              </a>
-              <a href={selectedProject.deployed} target="_blank" rel="noopener noreferrer">
-                <i className="fas fa-external-link-alt"></i>
-              </a>
-            </div>
-          </div>
-        </ProjectDetails>
+            </ProjectDetails>
+          )}
+        </>
       )}
     </ProjectsSectionContainer>
   );

@@ -101,7 +101,7 @@ const Navbar = () => {
                             <Button color="inherit" component={Link} to="/">
                                 Home
                             </Button>
-                            <Button color="inherit" component={Link} to="/">
+                            <Button color="inherit" component={Link} to="/about">
                                 <Info /> About
                             </Button>
                             <Button color="inherit" component={Link} to="/skills">
@@ -131,7 +131,7 @@ const Navbar = () => {
                                     </ListItemIcon>
                                     <ListItemText primary="Home" />
                                 </ListItem>
-                                <ListItem button component={Link} to="/">
+                                <ListItem button component={Link} to="/about">
                                     <ListItemIcon>
                                         <Info />
                                     </ListItemIcon>
