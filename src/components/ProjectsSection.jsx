@@ -39,7 +39,7 @@ const Tabs = styled.div`
   button {
     background: none;
     border: none;
-    color: white;
+    color: ${(props) => props.theme.palette.text.secondary}; /* Default tab color */
     font-size: 1.2rem;
     margin: 0 10px;
     padding: 10px 20px;
@@ -47,29 +47,29 @@ const Tabs = styled.div`
     transition: color 0.3s, border-bottom 0.3s;
 
     &.active {
-      color: ${(props) => props.theme.palette.primary.main};
-      border-bottom: 2px solid ${(props) => props.theme.palette.primary.main};
+      color: ${(props) => props.theme.palette.primary.main}; /* Color for active tab */
+      border-bottom: 2px solid ${(props) => props.theme.palette.primary.main}; /* Underline active tab */
     }
 
     &:hover {
-      color: ${(props) => props.theme.palette.primary.dark};
+      color: ${(props) => props.theme.palette.primary.dark}; /* Hover color for tabs */
     }
   }
 `;
 
 const ProjectCardsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 55px;
-  margin-right:30px;
-  margin-left:30px;
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  justify-content: center; /* Center the cards in the container */
+  gap: 55px; /* Space between cards */
+  margin: 0 30px; /* Margin on the left and right */
 
   @media (max-width: 1200px) {
-    grid-template-columns: repeat(2, 1fr); /* Two cards on medium screens */
+    gap: 30px; /* Adjust gap for medium screens */
   }
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr; /* One card on small screens */
+    gap: 20px; /* Adjust gap for small screens */
   }
 `;
 
@@ -80,9 +80,9 @@ const ProjectCard = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
-  height: 350px;
-  width:300px /* Reduce the card height */
-  
+  height: 350px; /* Set a fixed height for the card */
+  width: 300px; /* Set a fixed width for the card */
+
   &:hover {
     animation: ${cardHover} 0.3s ease-in-out;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
@@ -99,7 +99,7 @@ const ProjectCard = styled.div`
     padding: 8px;
     text-align: center;
     background: ${(props) => props.theme.palette.background.paper};
-    height: 40%; /* Adjust content area height */
+    height: 20%; /* Adjust content area height */
   }
 
   .card-title {
@@ -118,7 +118,7 @@ const ProjectCard = styled.div`
 
     a {
       color: ${(props) => props.theme.palette.text.secondary};
-      font-size: 2rem; /* Increase icon size */
+      font-size: 1.5rem; /* Adjust icon size */
       transition: color 0.3s;
 
       &:hover {
@@ -126,7 +126,25 @@ const ProjectCard = styled.div`
       }
     }
   }
+
+  .deployed-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+
+    a {
+      color: ${(props) => props.theme.palette.primary.main};
+      font-size: 1.2rem;
+      text-decoration: none;
+
+      &:hover {
+        color: ${(props) => props.theme.palette.primary.dark};
+      }
+    }
+  }
 `;
+
 
 const ProjectDetails = styled.div`
   position: fixed;
@@ -272,33 +290,44 @@ const ProjectsSection = () => {
                 <div className="card-content">
                   <div className="card-title">{project.title}</div>
                   <div className="card-icons">
-                    <a href={project.github} target="_blank" rel="noopener noreferrer">
-                      <i className="fab fa-github"></i>
+                    {/* GitHub Frontend and Backend links */}
+                    <a href={project.githubFrontend} target="_blank" rel="noopener noreferrer">
+                      <i className="fab fa-github"></i> FE
                     </a>
-                    <a href={project.deployed} target="_blank" rel="noopener noreferrer">
-                      <i className="fas fa-external-link-alt"></i>
+                    <a href={project.githubBackend} target="_blank" rel="noopener noreferrer">
+                      <i className="fab fa-github"></i> BE
+                    </a>
+                  </div>
+                  {/* Deployed Frontend and Backend links */}
+                  <div className="deployed-links">
+                    <a href={project.deployedFrontend} target="_blank" rel="noopener noreferrer">
+                      Frontend
+                    </a>
+                    <a href={project.deployedBackend} target="_blank" rel="noopener noreferrer">
+                      Backend
                     </a>
                   </div>
                 </div>
               </ProjectCard>
             ))}
           </ProjectCardsContainer>
+
           {selectedProject && (
             <ProjectDetails isOpen={!!selectedProject}>
               <div className="details-content">
-                <span className="close-button" onClick={handleCloseDetails}>
-                  &times;
-                </span>
-                <h2>{selectedProject.title}</h2>
                 <img src={selectedProject.image} alt={selectedProject.title} />
+                <h2>{selectedProject.title}</h2>
                 <p>{selectedProject.description}</p>
                 <div className="card-icons">
-                  <a href={selectedProject.github} target="_blank" rel="noopener noreferrer">
+                  <a href={selectedProject.githubFrontend} target="_blank" rel="noopener noreferrer">
                     <i className="fab fa-github"></i>
                   </a>
-                  <a href={selectedProject.deployed} target="_blank" rel="noopener noreferrer">
-                    <i className="fas fa-external-link-alt"></i>
+                  <a href={selectedProject.githubBackend} target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-github"></i>
                   </a>
+                </div>
+                <div className="close-button" onClick={handleCloseDetails}>
+                  &times;
                 </div>
               </div>
             </ProjectDetails>

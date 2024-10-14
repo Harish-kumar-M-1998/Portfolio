@@ -11,10 +11,15 @@ const HeroSectionContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 100vh;
-  background-color: ${(props) => props.theme.palette.background.default};
   padding: 0 20px;
   box-sizing: border-box;
-  overflow: hidden; // To prevent scrollbar due to animations
+  overflow: hidden; // Prevent scrollbar due to animations
+
+  /* Add background image properties */
+  background-image: url('https://img.freepik.com/free-vector/stars-gradient-night-sky_23-2148273756.jpg?t=st=1728878137~exp=1728881737~hmac=757a44af3216e3d5d9c88cad633e5afe8563b33539cc56ff4dfd584982da6ff8&w=996'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
 
   @media (max-width: 768px) {
     flex-direction: column; // Stack content vertically on smaller screens
@@ -23,6 +28,7 @@ const HeroSectionContainer = styled.div`
     height: auto; // Adjust height for smaller screens
   }
 `;
+
 
 const TextContent = styled.div`
   flex: 1;
@@ -36,9 +42,10 @@ const TextContent = styled.div`
   }
 
   .typed-text {
-    font-size: 1.5rem;
-    color: ${(props) => props.theme.palette.text.secondary};
+    font-size: 2.5rem; /* Increase font size */
+    color: #ff5722; /* Change to desired color */
     margin: 20px 0;
+    font-weight: bold; /* Make the text bold */
   }
 
   p {
@@ -46,6 +53,15 @@ const TextContent = styled.div`
     color: ${(props) => props.theme.palette.text.secondary};
     margin-top: 20px;
     max-width: 500px;
+    
+    span {
+      font-weight: bold; /* Make keywords bold */
+    }
+
+    .highlight {
+      font-size: 1.25rem; /* Increase font size for emphasis */
+      color: #ff5722; /* Change to desired color */
+    }
   }
 
   button {
@@ -138,7 +154,7 @@ const HeroSection = () => {
   return (
     <HeroSectionContainer>
       <TextContent>
-        <h1>I'm Harish Kumar</h1>
+        <h1> Hello ! I'm Harish Kumar</h1>
         <TypingEffect
           className="typed-text"
           text={['Web Developer', 'MERN Dev']}
@@ -149,7 +165,7 @@ const HeroSection = () => {
           cursorRenderer={(cursor) => <span>{cursor}</span>}
         />
         <p>
-          I am a full-stack developer specializing in the MERN stack. I have completed various projects, including building scalable web applications and integrating complex APIs. My expertise spans from front-end development to back-end server management.
+          I am a <span className="highlight">full-stack developer</span> specializing in the <span className="highlight">MERN stack</span>. I have completed various projects, including building scalable web applications and integrating complex APIs. My expertise spans from <span className="highlight">front-end development</span> to <span className="highlight">back-end server management</span>.
         </p>
         <div>
           <Link className="link-button" to="/contact">

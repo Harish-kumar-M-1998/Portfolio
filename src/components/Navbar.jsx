@@ -33,6 +33,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     padding-top: 64px;
     scroll-behavior: smooth;
+    
   }
 `;
 

@@ -10,7 +10,7 @@ const lightTheme = {
       paper: '#f0f0f0',
     },
     text: {
-      primary: '#000000',
+      primary: '#000002',
       secondary: '#555555',
     },
     primary: {
@@ -31,7 +31,7 @@ const darkTheme = {
       secondary: '#bbbbbb',
     },
     primary: {
-      main: '#bb86fc',
+      main: '#6008f0',
       dark: '#3700b3',
     },
   },
