@@ -154,7 +154,7 @@ const HeroSection = () => {
   return (
     <HeroSectionContainer>
       <TextContent>
-        <h1> Hello ! I'm Harish Kumar</h1>
+        <h1 style={{ color: '#f0f0f0' }}> Hello ! I'm Harish Kumar</h1>
         <TypingEffect
           className="typed-text"
           text={['Web Developer', 'MERN Dev']}
@@ -164,7 +164,7 @@ const HeroSection = () => {
           eraseDelay={2000}
           cursorRenderer={(cursor) => <span>{cursor}</span>}
         />
-        <p>
+        <p style={{ color: '#f0f0f0' }}>
           I am a <span className="highlight">full-stack developer</span> specializing in the <span className="highlight">MERN stack</span>. I have completed various projects, including building scalable web applications and integrating complex APIs. My expertise spans from <span className="highlight">front-end development</span> to <span className="highlight">back-end server management</span>.
         </p>
         <div>
